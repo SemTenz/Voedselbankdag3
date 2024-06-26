@@ -26,9 +26,5 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'De houdbaarheidsdatum is niet gewijzigd. De houdbaarheidsdatum mag met maximaal 7 dagen worden verlengd');
         }
 
-        $product->houdbaarheid = $newHoudbaarheid;
-        $product->save();
-
-        return redirect()->back()->with('success', 'De houdbaarheidsdatum is gewijzigd');
     }
 }

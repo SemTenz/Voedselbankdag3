@@ -31,6 +31,7 @@ class LeverancierController extends Controller
             // Foutmelding tonen als er geen resultaten zijn
             $errorMessage = $leveranciers->isEmpty() ? 'Er zijn geen leveranciers bekend van het geselecteerde leverancierstype.' : null;
         }
-    
+        // Retourneer de view met de leveranciers en foutmelding indien aanwezig
+        return view('leveranciers.index', compact('leveranciers', 'errorMessage'));
     }
-}
+}    
