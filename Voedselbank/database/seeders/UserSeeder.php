@@ -14,9 +14,9 @@ class UserSeeder extends Seeder
     {
         // Gebruiker 'directie'
         User::firstOrCreate(
-            ['email' => 'directie@gmail.com'],
+            ['email' => 'manager@gmail.com'],
             [
-                'username' => 'manager',
+                'name' => 'manager',
                 'email' => 'manager@gmail.com',
                 'password' => bcrypt('manager'),
                 'usertype' => 'manager'
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'medewerker@gmail.com'],
             [
-                'username' => 'medewerker',
+                'name' => 'medewerker',
                 'email' => 'medewerker@gmail.com',
                 'password' => bcrypt('medewerker'),
                 'usertype' => 'medewerker'
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'vrijwilliger@gmail.com'],
             [
-                'username' => 'vrijwilliger',
+                'name' => 'vrijwilliger',
                 'email' => 'vrijwilliger@gmail.com',
                 'password' => bcrypt('vrijwilliger'),
                 'usertype' => 'vrijwilliger'
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'user@gmail.com'],
             [
-                'username' => 'user',
+                'name' => 'user',
                 'email' => 'user@gmail.com',
                 'password' => bcrypt('user123'),
                 'usertype' => 'user'
