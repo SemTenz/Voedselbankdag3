@@ -79,8 +79,6 @@
                             <input id="Mobiel" class="form-input rounded-none shadow-sm mt-1 block w-1/2 p-2" type="tel" name="Mobiel" " required>
                         </div>
 
-
-
                         <!-- Add the rest of your input fields here -->
 
                         <div class=" flex items-center justify-end mt-1">
