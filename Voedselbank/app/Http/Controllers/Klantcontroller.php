@@ -42,6 +42,7 @@ class Klantcontroller extends Controller
         return view('klant.index', compact('gezinnen', 'isEmpty', 'postcodes'))->render();
     }
 
+    //om naar edit scherm te komen
     public function edit($id)
     {
         $persoon = Persoon::find($id);
