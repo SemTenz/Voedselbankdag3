@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class VoedselAllergie extends Model
 {
-    protected $table = 'voedsel_allergie'; // optioneel, afhankelijk van je tabelnaam
+    protected $table = 'allergie'; // Controleer of dit overeenkomt met je daadwerkelijke tabelnaam
 
+    // Definieer relaties indien nodig
     public function personen()
     {
         return $this->hasMany(Persoon::class, 'allergie_id');

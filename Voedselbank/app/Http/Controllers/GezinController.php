@@ -3,32 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\VoedselAllergie;
-use App\Models\Persoon;
 use App\Models\Gezin;
+use App\Models\VoedselAllergie;
 
 class GezinController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $allergieën = VoedselAllergie::all();
-        return view('gezinnen.index', compact('allergieën'));
+
+        // Filter op allergie als er een allergie_id is meegegeven
+        if ($request->has('allergie_id')) {
+            $allergieId = $request->input('allergie_id');
+            $allergie = VoedselAllergie::find($allergieId);
+
+            if ($allergie) {
+                // Ophalen van gezinnen die personen hebben met de geselecteerde allergie
+                $gezinnen = Gezin::whereHas('personen', function ($query) use ($allergieId) {
+                    $query->whereHas('voedselAllergie', function ($q) use ($allergieId) {
+                        $q->where('id', $allergieId);
+                    });
+                })->get();
+            } else {
+                // Als de allergie niet gevonden wordt, lege collectie tonen
+                $gezinnen = collect();
+            }
+        } else {
+            // Geen allergie_id meegegeven, toon alle gezinnen
+            $gezinnen = Gezin::all();
+        }
+
+        return view('gezinnen.index', compact('gezinnen', 'allergieën'));
     }
 
-    public function show(Request $request)
+
+    public function show(Request $request, $gezinId)
     {
-        $allergieId = $request->input('allergie_id');
-        $allergie = VoedselAllergie::find($allergieId);
+        $allergieId = $request->query('allergie_id'); // Haal allergie_id op uit query parameters
 
-        if ($allergie) {
-            $personen = Persoon::where('allergie_id', $allergieId)->get();
-            $gezinnen = $personen->map(function ($persoon) {
-                return $persoon->gezin;
-            })->unique();
+        $gezin = Gezin::findOrFail($gezinId);
+        $gezin->load('personen.voedselAllergie');
 
-            return view('gezinnen.show', compact('gezinnen', 'allergie'));
-        } else {
-            return redirect()->route('gezinnen.index')->with('error', 'Er zijn geen gezinnen gevonden met de geselecteerde allergie.');
-        }
+        return view('gezinnen.show', compact('gezin', 'allergieId'));
     }
 }

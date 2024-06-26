@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('allergieperpersoon', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('persoonid')->constrained('persoon')->onDelete('cascade');
-            $table->foreignId('allergieid')->constrained('allergie')->onDelete('cascade');
+            $table->foreignId('persoonid')->unsigned();
+            $table->foreignId('allergieid')->unsigned();
             $table->timestamps();
         });
     }

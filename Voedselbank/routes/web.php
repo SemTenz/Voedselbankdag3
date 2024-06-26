@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('checkusertype:manager')->group(function () {
     Route::get('/gezinnen', [GezinController::class, 'index'])->name('gezinnen.index');
-    Route::post('/gezinnen', [GezinController::class, 'show'])->name('gezinnen.show');
+    Route::get('/gezinnen/{gezinId}', [GezinController::class, 'show'])->name('gezinnen.show');
 });
 
 
