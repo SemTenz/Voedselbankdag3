@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Klantcontroller;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,4 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/klant', [Klantcontroller::class, 'index'])->name('klant.index');
+
+Route::get('/gezinnen/search', [Klantcontroller::class, 'search'])->name('klant.search');
+
+Route::get('/klant{id}', [Klantcontroller::class, 'edit'])->name('klant.edit');
+Route::put('/klant{id}', [Klantcontroller::class, 'update'])->name('klant.update');
+require __DIR__ . '/auth.php';

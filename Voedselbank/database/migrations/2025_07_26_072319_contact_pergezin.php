@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gezin', function (Blueprint $table) {
+        Schema::create('ContactPerGezin', function (Blueprint $table) {
             $table->id();
-            $table->string('naam');
-            $table->string('code');
-            $table->string('EetwensPerGezin');
-            $table->string('aantalVolwassenen');
-            $table->string('aantalKinderen');
-            $table->string('aantalBabys');
-            $table->string('TotaalAantalPersonen');
+            $table->unsignedBigInteger('GezinId');
+            $table->unsignedBigInteger('ContactId');
             $table->timestamps();
             $table->boolean('IsActive')->default(true);
+
+            $table->foreign('GezinId')->references('id')->on('gezin');
+            $table->foreign('ContactId')->references('id')->on('contact');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('ContactPerGezin');
     }
 };

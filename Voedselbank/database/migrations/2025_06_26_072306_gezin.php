@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ContactPerGezin', function (Blueprint $table) {
+        Schema::create('gezin', function (Blueprint $table) {
             $table->id();
-            $table->string('GezinId');
-            $table->string('EetwensId');
+            $table->string('naam');
+            $table->string('code');
+            $table->string('Omschrijving');
+            $table->string('aantalVolwassenen');
+            $table->string('aantalKinderen');
+            $table->string('aantalBabys');
+            $table->string('TotaalAantalPersonen')->nullable();
             $table->timestamps();
             $table->boolean('IsActive')->default(true);
         });
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('gezin');
     }
 };
