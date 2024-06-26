@@ -22,7 +22,7 @@ class Klantcontroller extends Controller
         return view('klant.index', compact('gezinnen', 'postcodes'));
     }
 
-
+    //fucntie die zoekt naar postcodes als de user er ov vraagt 
     public function search(Request $request)
     {
         $search = $request->search;
