@@ -59,8 +59,6 @@ class GezinController extends Controller
             abort(404);
         }
     }
-
-
     public function updateAllergie(Request $request, $gezinId, $persoonId)
     {
         $persoon = Persoon::findOrFail($persoonId);
@@ -79,7 +77,7 @@ class GezinController extends Controller
 
         $persoon->voedselAllergie()->sync([$request->allergie_id]);
 
-        return redirect()->route('gezinnen.show', ['gezinId' => $gezinId])
-            ->with('success', 'Allergie van persoon succesvol bijgewerkt.');
+        $successMessage = 'De wijziging is doorgevoerd.'; // Aangepaste succesmelding
+        return redirect()->route('gezinnen.show', ['gezinId' => $gezinId])->with('success', $successMessage);
     }
 }
