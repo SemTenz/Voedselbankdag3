@@ -33,7 +33,9 @@ public function update(Request $request, $id)
     $voedselpakket = Voedselpakket::findOrFail($id);
     $voedselpakket->status = $request->status;
     $voedselpakket->save();
+    session()->flash('status_changed', 'De wijziging is doorgevoerd.');
 
-    return redirect()->route('voedselpakket.index')->with('success', 'Status updated successfully!');
+    // Redirect back to the edit page or wherever you want to show the message
+    return redirect()->route('voedselpakket.edit', $id);;
 }
 }
