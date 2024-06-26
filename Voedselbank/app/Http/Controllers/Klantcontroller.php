@@ -12,7 +12,7 @@ class Klantcontroller extends Controller
 {
 
 
-
+    //funcit eom de data te pakken die nodig is voor overzcht
     public function index()
     {
 
