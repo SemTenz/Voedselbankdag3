@@ -10,6 +10,7 @@ class VoedselAllergie extends Model
 {
     protected $table = 'allergie';
 
+
     public function personen()
     {
         return $this->belongsToMany(Persoon::class, 'allergieperpersoon', 'allergieid', 'persoonid');

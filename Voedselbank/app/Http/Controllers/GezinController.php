@@ -60,36 +60,26 @@ class GezinController extends Controller
         }
     }
 
+
     public function updateAllergie(Request $request, $gezinId, $persoonId)
     {
-        try {
-            // Log request data to debug
-            Log::info('Request data:', $request->all());
+        $persoon = Persoon::findOrFail($persoonId);
 
-            // Find the family and the person
-            $gezin = Gezin::findOrFail($gezinId);
-            $persoon = Persoon::findOrFail($persoonId);
+        $request->validate([
+            'allergie_id' => 'required|exists:allergie,id', // Zorg ervoor dat dit overeenkomt met je database kolomnaam
+        ]);
 
-            // Validate the request data
-            $request->validate([
-                'allergie_id' => 'required|exists:voedsel_allergies,id',
-            ]);
+        $selectedAllergie = VoedselAllergie::find($request->allergie_id);
 
-            // Update the person's allergy using sync method
-            $persoon->voedselAllergie()->sync([$request->allergie_id]);
-
-            // Redirect back to the show page with success message
-            return redirect()->route('gezinnen.show', ['gezinId' => $gezin->id])
-                ->with('success', 'Allergie van persoon succesvol bijgewerkt.');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            abort(404);
-        } catch (\Exception $e) {
-            // Log the error
-            Log::error('Error updating allergy:', ['message' => $e->getMessage()]);
-
-            // Handle other exceptions gracefully
-            return redirect()->back()->withInput()
-                ->withErrors(['message' => 'Er is een fout opgetreden bij het bijwerken van de allergie. Probeer het opnieuw.']);
+        // Controleer op het anafylactisch risico van de allergie
+        if ($selectedAllergie && $selectedAllergie->anafylactischrisico === 'hoog') {
+            $errorMessage = "Waarschuwing: Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactische shock.";
+            return redirect()->route('gezinnen.editAllergie', ['gezinId' => $gezinId, 'persoonId' => $persoonId])->with('error', $errorMessage);
         }
+
+        $persoon->voedselAllergie()->sync([$request->allergie_id]);
+
+        return redirect()->route('gezinnen.show', ['gezinId' => $gezinId])
+            ->with('success', 'Allergie van persoon succesvol bijgewerkt.');
     }
 }

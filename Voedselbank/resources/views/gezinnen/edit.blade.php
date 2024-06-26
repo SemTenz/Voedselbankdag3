@@ -9,6 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h2 class="text-lg font-semibold mb-4">Bewerk allergie van persoon:</h2>
+
+                @if (session('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                        role="alert">
+                        <strong class="font-bold">Waarschuwing!</strong>
+                        <span class="block sm:inline">{{ session('error') }}</span>
+                    </div>
+                @endif
+
                 <form
                     action="{{ route('gezinnen.updateAllergie', ['gezinId' => $gezin->id, 'persoonId' => $persoon->id]) }}"
                     method="POST">
@@ -27,13 +36,24 @@
                         </select>
                     </div>
 
-                    <div class="flex items-center justify-end mt-4">
+                    <div class="mt-4 flex justify-between items-center">
                         <button type="submit"
-                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            Opslaan
+                            class="inline-flex items-center px-5 py-3 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            Wijzig Allergie
                         </button>
                     </div>
                 </form>
+
+                <div class="mt-4 flex justify-end space-x-2">
+                    <a href="{{ route('gezinnen.show', ['gezinId' => $gezin->id]) }}"
+                        class="inline-flex items-center px-5 py-3 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        Terug
+                    </a>
+                    <a href="{{ route('gezinnen.index', ['gezinId' => $gezin->id]) }}"
+                        class="inline-flex items-center px-5 py-3 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        Home
+                    </a>
+                </div>
             </div>
         </div>
     </div>
