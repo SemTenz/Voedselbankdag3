@@ -18,9 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// routes/web.php
 Route::middleware('checkusertype:manager')->group(function () {
     Route::get('/gezinnen', [GezinController::class, 'index'])->name('gezinnen.index');
     Route::get('/gezinnen/{gezinId}', [GezinController::class, 'show'])->name('gezinnen.show');
+    Route::get('/gezinnen/{gezinId}/edit/allergie/{persoonId}', [GezinController::class, 'editAllergie'])->name('gezinnen.editAllergie');
+    Route::put('/gezinnen/{gezinId}/update/allergie/{persoonId}', [GezinController::class, 'updateAllergie'])->name('gezinnen.updateAllergie');
 });
 
 

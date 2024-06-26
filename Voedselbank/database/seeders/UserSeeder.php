@@ -47,12 +47,12 @@ class UserSeeder extends Seeder
 
         // Gebruiker 'user'
         User::firstOrCreate(
-            ['email' => 'user@gmail.com'],
+            ['email' => 'klant@gmail.com'],
             [
-                'name' => 'user',
-                'email' => 'user@gmail.com',
-                'password' => bcrypt('user123'),
-                'usertype' => 'user'
+                'name' => 'klant',
+                'email' => 'klant@gmail.com',
+                'password' => bcrypt('klant123'),
+                'usertype' => 'klant'
             ]
         );
     }

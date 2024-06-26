@@ -4,13 +4,19 @@
             {{ __('Gezinnen Overzicht') }}
         </h2>
     </x-slot>
+    @if ($errorMessage)
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Foutmelding:</strong>
+            <span class="block sm:inline">{{ $errorMessage }}</span>
+        </div>
+    @endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <div class="flex justify-between mb-4">
-                    <div>
-                        <form action="{{ route('gezinnen.index') }}" method="GET">
+                    <div class="flex items-center">
+                        <form action="{{ route('gezinnen.index') }}" method="GET" id="filterForm">
                             <select name="allergie_id" id="allergie_id"
                                 class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="">Selecteer Allergie</option>
@@ -21,15 +27,18 @@
                                     </option>
                                 @endforeach
                             </select>
-                    </div>
-                    <div>
-                        <button type="submit" id="filterButton"
-                            class="ml-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            Toon Gezinnen
-                        </button>
+                            <button type="submit" form="filterForm" id="filterButton"
+                                class="ml-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                Toon Gezinnen
+                            </button>
+                        </form>
                     </div>
                 </div>
-                </form>
+                @if (isset($errorMessage))
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+                        <p>{{ $errorMessage }}</p>
+                    </div>
+                @endif
                 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                         <table class="min-w-full leading-normal">
@@ -37,28 +46,32 @@
                                 <tr>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Naam</th>
+                                        Naam
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Omschrijving</th>
+                                        Omschrijving
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Volwassenen</th>
+                                        Volwassenen
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Kinderen</th>
+                                        Kinderen
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Baby's</th>
+                                        Baby's
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Vertegenwoordiger</th>
+                                        Vertegenwoordiger
+                                    </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Allergie Details</th>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Acties</th>
+                                        Allergie Details
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,18 +93,23 @@
                                             {{ $gezin->aantalbabys }}
                                         </td>
                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            {{ $gezin->vertegenwoordiger }}
+                                            @php
+                                                $vertegenwoordiger = $gezin->personen->firstWhere(
+                                                    'isvertegenwoordiger',
+                                                    true,
+                                                );
+                                            @endphp
+                                            @if ($vertegenwoordiger)
+                                                {{ $vertegenwoordiger->voornaam }}
+                                                {{ $vertegenwoordiger->tussenvoegsel ?? '' }}
+                                                {{ $vertegenwoordiger->achternaam }}
+                                            @else
+                                                Niet Gedefinieerd
+                                            @endif
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            @foreach ($gezin->personen as $persoon)
-                                                @if ($persoon->voedselAllergie)
-                                                    {{ $persoon->voedselAllergie->naam }},
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
                                             <a href="{{ route('gezinnen.show', ['gezinId' => $gezin->id, 'allergie_id' => request('allergie_id')]) }}"
-                                                class="ml-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 Details
                                             </a>
                                         </td>
@@ -101,8 +119,13 @@
                         </table>
                     </div>
                 </div>
+                <div class="mt-4">
+                    <a href="{{ route('gezinnen.index') }}"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        Terug naar Overzicht
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-
 </x-app-layout>

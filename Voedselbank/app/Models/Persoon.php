@@ -3,18 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Persoon extends Model
 {
-    protected $table = 'persoon'; // optioneel, afhankelijk van je tabelnaam
+    protected $table = 'persoon';
 
-    public function gezin()
+    public function voedselAllergie(): BelongsToMany
     {
-        return $this->belongsTo(Gezin::class, 'gezin_id');
-    }
-
-    public function voedselAllergie()
-    {
-        return $this->belongsTo(VoedselAllergie::class, 'allergie_id');
+        return $this->belongsToMany(VoedselAllergie::class, 'allergieperpersoon', 'persoonid', 'allergieid');
     }
 }

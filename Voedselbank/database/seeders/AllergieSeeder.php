@@ -7,10 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class AllergieSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
         $allergieën = [
             ['naam' => 'Gluten', 'omschrijving' => 'Allergie voor gluten', 'anafylactischrisico' => 'zeerlaag'],
