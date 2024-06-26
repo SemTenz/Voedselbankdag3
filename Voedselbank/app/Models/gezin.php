@@ -26,7 +26,6 @@ class gezin extends Model
         return $this->hasMany(Persoon::class, 'GezinId');
     }
 
-
     public function contact()
     {
         return $this->belongsToMany('App\Models\Contact', 'ContactPerGezin', 'GezinId', 'ContactId');
