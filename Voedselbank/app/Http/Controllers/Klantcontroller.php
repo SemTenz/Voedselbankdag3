@@ -52,7 +52,7 @@ class Klantcontroller extends Controller
 
 
 
-
+    // hier valideer en update ik data 
     public function update(Request $request, $id)
     {
 
