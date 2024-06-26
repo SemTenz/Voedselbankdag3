@@ -55,17 +55,16 @@ class Klantcontroller extends Controller
     // hier valideer en update ik data 
     public function update(Request $request, $id)
     {
-
         $validatedData = $request->validate([
             'Voornaam' => 'required|max:255',
             'Achternaam' => 'required|max:255',
             'Geboortedatum' => 'required|date',
             'TypePersoon' => 'required',
             'Vertegenwoordiger' => 'required',
-            'Postcode' => 'required|max:255',
+            'Postcode' => 'required|max:6',
             'Straatnaam' => 'required|max:255',
             'Huisnummer' => 'required|integer|numeric',
-            'Toevoeging' => 'nullable|max:255',
+            'Toevoeging' => 'nullable|max:3',
             'Woonplaats' => 'required|max:255',
             'Email' => 'required|email|max:255',
             'Mobiel' => 'required|max:255',
@@ -89,9 +88,7 @@ class Klantcontroller extends Controller
 
         $contactPerGezin = ContactPerGezin::where('gezinId', $request->gezinId)->first();
 
-
         $contact = Contact::find($contactPerGezin->ContactId);
-
 
         $contact->Straat = $request->Straatnaam;
         $contact->Huisnummer = $request->Huisnummer;
@@ -103,11 +100,9 @@ class Klantcontroller extends Controller
 
         $contact->save();
 
-
         $postcodes = contact::distinct()->pluck('postcode');
 
         $gezinnen = Gezin::with(['persoon', 'contact'])->get();
-
 
         return view('klant.index', compact('gezinnen', 'postcodes'))->with('success', 'De klantgegevens zijn gewijzigd.');
     }
