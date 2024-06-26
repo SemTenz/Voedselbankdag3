@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            // EetwensenTableSeeder::class,
-            GezinnenTableSeeder::class, // Ensure GezinnenTableSeeder is in the Database\Seeders namespace
-            // EetwensPerGezinTableSeeder::class,
+            EetwensenTableSeeder::class,
+            GezinnenTableSeeder::class,
+            EetwensPerGezinTableSeeder::class,
             VoedselpakkettenTableSeeder::class,
             ProductPerVoedselpakketTableSeeder::class,
             PersonenTableSeeder::class,

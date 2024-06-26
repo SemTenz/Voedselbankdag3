@@ -17,6 +17,10 @@ class GezinnenController extends Controller
         // Retrieve all gezinnen with their associated vertegenwoordiger
         $gezinnen = Gezin::with('vertegenwoordiger')->get();
         // Return the view with the gezinnen data
+        // $gezinnen = Gezin::with(['eetwensen' => function($query) {
+        //     $query->orderBy('naam'); // Assuming you want to sort by the 'naam' of the eetwens
+        // }])->get();
+
         return view('gezin.index', compact('gezinnen'));
     }
 

@@ -42,4 +42,9 @@ class Gezin extends Model
 {
     return $this->belongsTo(Persoon::class, 'vertegenwoordiger_id');
 }
+
+    public function eetwensen()
+    {
+        return $this->belongsToMany(Eetwens::class, 'eetwenspergezin', 'gezinid', 'eetwensid');
+    }
 }

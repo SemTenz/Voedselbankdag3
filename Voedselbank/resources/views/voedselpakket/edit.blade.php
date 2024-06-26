@@ -20,7 +20,7 @@
                             </div>
                             <script>
                                 setTimeout(function() {
-                                    window.location.href = "{{ route('voedselpakket.index') }}"; // Adjust the route to your 'overzicht voedselpakket' page
+                                    window.location.href = "{{ route('voedselpakket.index') }}";
                                 }, 3000);
                             </script>
                         @endif
