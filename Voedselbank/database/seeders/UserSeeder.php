@@ -14,10 +14,10 @@ class UserSeeder extends Seeder
     {
         // Gebruiker 'directie'
         User::firstOrCreate(
-            ['email' => 'manager@gmail.com'],
+            ['email' => 'hans@maaskantje.nl'],
             [
-                'name' => 'manager',
-                'email' => 'manager@gmail.com',
+                'name' => 'Hans van Leeuwen',
+                'email' => 'hans@maaskantje.nl',
                 'password' => bcrypt('manager'),
                 'usertype' => 'manager'
             ]
@@ -25,10 +25,10 @@ class UserSeeder extends Seeder
 
         // Gebruiker 'magazijnmedewerker'
         User::firstOrCreate(
-            ['email' => 'medewerker@gmail.com'],
+            ['email' => 'jan@maaskantje.nl'],
             [
-                'name' => 'medewerker',
-                'email' => 'medewerker@gmail.com',
+                'name' => 'Jan van der Sluijs',
+                'email' => 'jan@maaskantje.nl',
                 'password' => bcrypt('medewerker'),
                 'usertype' => 'medewerker'
             ]
@@ -36,10 +36,10 @@ class UserSeeder extends Seeder
 
         // Gebruiker 'vrijwilliger'
         User::firstOrCreate(
-            ['email' => 'vrijwilliger@gmail.com'],
+            ['email' => 'herman@maaskantje.nl'],
             [
-                'name' => 'vrijwilliger',
-                'email' => 'vrijwilliger@gmail.com',
+                'name' => 'Herman den Duker',
+                'email' => 'herman@maaskantje.nl',
                 'password' => bcrypt('vrijwilliger'),
                 'usertype' => 'vrijwilliger'
             ]

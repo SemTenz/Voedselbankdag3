@@ -84,6 +84,10 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
+                <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.index')">
+                            {{ __('leverancier overzicht') }}
+                        </x-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

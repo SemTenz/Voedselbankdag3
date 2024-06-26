@@ -2676,7 +2676,7 @@ EOT;
     1739 University Ave.
     Oxford, MS 38655-4109
 
-    Contact us if you want to arrange for a wire transfer or payment
+    contact us if you want to arrange for a wire transfer or payment
     method other than by check or money order.
 
     The Project Gutenberg Literary Archive Foundation has been approved by

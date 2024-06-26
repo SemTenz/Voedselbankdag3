@@ -3255,7 +3255,7 @@ EOT;
     are set forth in this agreement, you must obtain permission in writing
     from both the Project Gutenberg Literary Archive Foundation and The
     Project Gutenberg Trademark LLC, the owner of the Project Gutenberg-tm
-    trademark. Contact the Foundation as set forth in Section 3 below.
+    trademark. contact the Foundation as set forth in Section 3 below.
 
     1.F.
 
