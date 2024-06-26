@@ -16,10 +16,10 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'directie@gmail.com'],
             [
-                'username' => 'directie',
-                'email' => 'directie@gmail.com',
-                'password' => bcrypt('directie'),
-                'usertype' => 'directie'
+                'username' => 'manager',
+                'email' => 'manager@gmail.com',
+                'password' => bcrypt('manager'),
+                'usertype' => 'manager'
             ]
         );
 
@@ -27,10 +27,10 @@ class UserSeeder extends Seeder
         User::firstOrCreate(
             ['email' => 'medewerker@gmail.com'],
             [
-                'username' => 'magazijnmedewerker',
+                'username' => 'medewerker',
                 'email' => 'medewerker@gmail.com',
                 'password' => bcrypt('medewerker'),
-                'usertype' => 'magazijnmedewerker'
+                'usertype' => 'medewerker'
             ]
         );
 
