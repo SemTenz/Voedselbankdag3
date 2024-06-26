@@ -183,7 +183,9 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         $info = $this->type;
 
         if (in_array(CreatesMatchingTest::class, class_uses_recursive($this))) {
-            $this->handleTestCreation($path);
+            if ($this->handleTestCreation($path)) {
+                $info .= ' and test';
+            }
         }
 
         if (windows_os()) {
@@ -417,7 +419,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
      */
     protected function getNameInput()
     {
-        return (string) Str::of($this->argument('name'))->trim()->beforeLast('.php');
+        return trim($this->argument('name'));
     }
 
     /**

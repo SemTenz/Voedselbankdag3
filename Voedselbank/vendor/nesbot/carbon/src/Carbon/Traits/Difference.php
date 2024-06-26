@@ -268,8 +268,7 @@ trait Difference
 
         if (!$compareUsingUtc) {
             $minutes = $interval->i + ($interval->s + $interval->f) / static::SECONDS_PER_MINUTE;
-            // 24 hours means there is a DST bug
-            $hours = ($interval->h === 24 && $interval->days !== false ? 0 : $interval->h) + $minutes / static::MINUTES_PER_HOUR;
+            $hours = $interval->h + $minutes / static::MINUTES_PER_HOUR;
 
             return $this->getIntervalDayDiff($interval)
                 + ($interval->invert ? -$hours : $hours) / static::HOURS_PER_DAY;

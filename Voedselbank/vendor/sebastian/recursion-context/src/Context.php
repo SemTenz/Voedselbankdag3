@@ -17,7 +17,7 @@ use function array_slice;
 use function count;
 use function is_array;
 use function random_int;
-use function spl_object_id;
+use function spl_object_hash;
 use SplObjectStorage;
 
 final class Context
@@ -44,7 +44,7 @@ final class Context
     }
 
     /**
-     * @psalm-template T of object|array
+     * @psalm-template T
      *
      * @psalm-param T $value
      *
@@ -60,7 +60,7 @@ final class Context
     }
 
     /**
-     * @psalm-template T of object|array
+     * @psalm-template T
      *
      * @psalm-param T $value
      *
@@ -114,13 +114,13 @@ final class Context
         return $key;
     }
 
-    private function addObject(object $object): int
+    private function addObject(object $object): string
     {
         if (!$this->objects->contains($object)) {
             $this->objects->attach($object);
         }
 
-        return spl_object_id($object);
+        return spl_object_hash($object);
     }
 
     private function containsArray(array $array): false|int
@@ -130,10 +130,10 @@ final class Context
         return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
     }
 
-    private function containsObject(object $value): false|int
+    private function containsObject(object $value): false|string
     {
         if ($this->objects->contains($value)) {
-            return spl_object_id($value);
+            return spl_object_hash($value);
         }
 
         return false;
