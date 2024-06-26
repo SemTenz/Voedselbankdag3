@@ -21,7 +21,6 @@ class gezin extends Model
         'IsActive'
     ];
 
-
     public function persoon()
     {
         return $this->hasMany(Persoon::class, 'GezinId');
