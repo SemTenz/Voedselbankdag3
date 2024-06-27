@@ -47,7 +47,11 @@ class Klantcontroller extends Controller
     {
         $persoon = Persoon::find($id);
 
-        return view('klant.edit', compact('persoon'));
+        $contactPerGezin = ContactPerGezin::where('gezinId', $persoon->GezinId)->first();
+
+        $contact = Contact::find($contactPerGezin->ContactId);
+
+        return view('klant.edit', compact('persoon', 'contact'));
     }
 
 
@@ -99,11 +103,12 @@ class Klantcontroller extends Controller
         $contact->Mobiel = $request->Mobiel;
 
         $contact->save();
+        session()->flash('status_changed', 'De wijziging is doorgevoerd.');
 
         $postcodes = contact::distinct()->pluck('postcode');
 
         $gezinnen = Gezin::with(['persoon', 'contact'])->get();
 
-        return view('klant.index', compact('gezinnen', 'postcodes'))->with('success', 'De klantgegevens zijn gewijzigd.');
+        return view('klant.edit', compact('gezinnen', 'postcodes'));
     }
 }
