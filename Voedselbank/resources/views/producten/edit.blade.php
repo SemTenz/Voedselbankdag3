@@ -4,22 +4,20 @@
 <div class="container">
     <h1 class="header-title">Wijzig Product</h1>
 
-    @if($errors->has('houdbaarheid'))
-    <div class="alert alert-danger">
-        {{ $errors->first('houdbaarheid') }}
-    </div>
+    {{-- Algemene foutmeldingen --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
+        </div>
     @endif
 
-    @if($errors->has('nietverlengd'))
-    <div class="alert alert-danger">
-        {{ $errors->first('nietverlengd') }}
-    </div>
-    @endif
-
+    {{-- Succesbericht --}}
     @if(session('success'))
-    <div class="alert alert-success" role="alert">
-        {{ session('success') }}
-    </div>
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
     @endif
 
     <form method="POST" action="{{ route('producten.update', $product->id) }}">
@@ -30,9 +28,9 @@
             <label for="houdbaarheid" class="label-title">Houdbaarheidsdatum:</label>
             <input type="date" class="form-control @error('houdbaarheid') is-invalid @enderror" id="houdbaarheid" name="houdbaarheid" value="{{ old('houdbaarheid', $product->houdbaarheid->format('Y-m-d')) }}" required>
             @error('houdbaarheid')
-            <div class="invalid-feedback" style="color: red;">
-                {{ $message }}
-            </div>
+                <div class="invalid-feedback" style="color: red;">
+                    {{ $message }}
+                </div>
             @enderror
         </div>
 
@@ -50,10 +48,6 @@
         color: green;
         font-size: 1.5rem;
         font-weight: bold;
-    }
-
-    .alert-container {
-        margin-top: 20px;
     }
 
     .alert {
@@ -122,6 +116,17 @@
 
     .btn {
         margin: 0 5px;
+    }
+
+    /* CSS voor specifieke foutmeldingen */
+    .maximaal-feedback {
+        margin-top: 5px;
+        font-size: 0.875rem;
+    }
+
+    .invalid-feedback {
+        margin-top: 5px;
+        font-size: 0.875rem;
     }
 </style>
 @endsection
