@@ -9,7 +9,6 @@
         <div class="alert alert-danger">
             @foreach ($errors->all() as $error)
                 <div>{{ $error }}</div>
-                <div class="houd">{{ $error }}</div>
             @endforeach
         </div>
     @endif
@@ -119,11 +118,6 @@
 
     .btn {
         margin: 0 5px;
-    }
-    .houd {
-        position: relative;
-        color: red;
-        bottom: 50px;
     }
 </style>
 @endsection
