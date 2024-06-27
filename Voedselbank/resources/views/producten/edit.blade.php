@@ -4,11 +4,12 @@
 <div class="container">
     <h1 class="header-title">Wijzig Product</h1>
 
-    {{-- Algemene foutmeldingen --}}
+    {{-- Foutmeldingen --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             @foreach ($errors->all() as $error)
                 <div>{{ $error }}</div>
+                <div class="houd">{{ $error }}</div>
             @endforeach
         </div>
     @endif
@@ -27,7 +28,7 @@
         <div class="form-group">
             <label for="houdbaarheid" class="label-title">Houdbaarheidsdatum:</label>
             <input type="date" class="form-control @error('houdbaarheid') is-invalid @enderror" id="houdbaarheid" name="houdbaarheid" value="{{ old('houdbaarheid', $product->houdbaarheid->format('Y-m-d')) }}" required>
-            @error('houdbaarheid')
+            @error('maximaal')
                 <div class="invalid-feedback" style="color: red;">
                     {{ $message }}
                 </div>
@@ -80,13 +81,13 @@
     .form-control {
         border-radius: 5px;
         padding: 10px;
-        width: calc(100% - 22px);
+        width: 500px
     }
 
     .btn-primary {
         position: relative;
-        left: 50px;
-        top: 20px;
+
+        top: 50px;
         background-color: #6c757d;
         color: white;
         border-radius: 5px;
@@ -99,6 +100,8 @@
     }
 
     .btn-secondary {
+        position: relative;
+        left: 450px;
         background-color: #007bff;
         color: white;
         border-radius: 5px;
@@ -117,16 +120,10 @@
     .btn {
         margin: 0 5px;
     }
-
-    /* CSS voor specifieke foutmeldingen */
-    .maximaal-feedback {
-        margin-top: 5px;
-        font-size: 0.875rem;
-    }
-
-    .invalid-feedback {
-        margin-top: 5px;
-        font-size: 0.875rem;
+    .houd {
+        position: relative;
+        color: red;
+        bottom: 50px;
     }
 </style>
 @endsection
