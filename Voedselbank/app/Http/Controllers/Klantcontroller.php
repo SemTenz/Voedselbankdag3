@@ -42,6 +42,16 @@ class Klantcontroller extends Controller
         return view('klant.index', compact('gezinnen', 'isEmpty', 'postcodes'))->render();
     }
 
+    public function show($id)
+    {
+        $persoon = Persoon::find($id);
+
+        $contactPerGezin = ContactPerGezin::where('gezinId', $persoon->GezinId)->first();
+
+        $contact = Contact::find($contactPerGezin->ContactId);
+
+        return view('klant.details', compact('persoon', 'contact'));
+    }
     //om naar edit scherm te komen
     public function edit($id)
     {
@@ -108,7 +118,7 @@ class Klantcontroller extends Controller
         $postcodes = contact::distinct()->pluck('postcode');
 
         $gezinnen = Gezin::with(['persoon', 'contact'])->get();
-
-        return view('klant.edit', compact('gezinnen', 'postcodes'));
+        $persoon = Persoon::find($id);
+        return view('klant.edit', compact('gezinnen', 'postcodes', 'persoon', 'contact'));
     }
 }

@@ -107,7 +107,7 @@
                                 <td>
                                     @foreach($gezin->persoon as $persoon)
                                     @if($persoon->IsVertegenwoordiger == 1)
-                                    <a href="{{ route('klant.edit', $persoon->id) }}">
+                                    <a href="{{ route('klant.details', $persoon->id) }}">
                                         <i class="bi bi-journal-text"></i>
                                     </a>
                                     @endif
