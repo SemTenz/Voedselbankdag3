@@ -17,25 +17,40 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'houdbaarheid' => 'required|date',
+            'houdbaarheid' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $today = Carbon::today();
+                    $selectedDate = Carbon::parse($value);
+    
+                    // Controleer of de gekozen datum vandaag of in de toekomst ligt
+                    if ($selectedDate->lessThanOrEqualTo($today)) {
+                        $fail('De houdbaarheidsdatum moet een datum in de toekomst zijn.');
+                    }
+                },
+            ],
         ]);
-
+    
         $newHoudbaarheid = Carbon::parse($request->houdbaarheid);
-
-        // Huidige houdbaarheidsdatum van het product
         $currentHoudbaarheid = Carbon::parse($product->houdbaarheid);
-
-        // Controleer of de nieuwe houdbaarheidsdatum niet meer dan 7 dagen verschilt van de huidige
-        if ($newHoudbaarheid->greaterThan($currentHoudbaarheid->addDays(7))) {
-            return redirect()->back()->with('error', 'De houdbaarheidsdatum mag met maximaal 7 dagen worden verlengd.');
+    
+        // Maak een kopie van $currentHoudbaarheid en voeg 7 dagen toe voor de vergelijking
+        $modifiedHoudbaarheid = (clone $currentHoudbaarheid)->addDays(7);
+    
+        // Controleer of de nieuwe houdbaarheidsdatum gelijk is aan de huidige
+        if ($newHoudbaarheid->equalTo($currentHoudbaarheid)) {
+            return redirect()->back()->withErrors(['nietverlengd' => 'De houdbaarheidsdatum is niet gewijzigd']);
+        } elseif ($newHoudbaarheid->greaterThan($modifiedHoudbaarheid)) {
+            // Controleer of de nieuwe houdbaarheidsdatum meer dan 7 dagen verschilt van de huidige
+            return redirect()->back()->withErrors(['houdbaarheid' => 'De houdbaarheidsdatum mag met maximaal 7 dagen worden verlengd']);
         }
-
+    
         // Update de houdbaarheidsdatum van het product
         $product->houdbaarheid = $newHoudbaarheid;
         $product->save();
-
+    
+        // Als de houdbaarheidsdatum is gewijzigd, geef een succesmelding door naar de view
         return redirect()->back()->with('success', 'De houdbaarheidsdatum is gewijzigd.');
     }
-}
-
-?>
+}  

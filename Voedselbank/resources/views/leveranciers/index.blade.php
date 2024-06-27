@@ -1,4 +1,16 @@
+<style>
+    .blue-icon {
+        color: blue; /* Kleur van het icoon blauw maken */
+        display: flex;
+        justify-content: center; /* Horizontaal centreren */
+        align-items: center; /* Verticaal centreren */
+        height: 100%; /* Volledige hoogte van de parent element */
+    }
+</style>
+
+
 @extends('layouts.app')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
 
 @section('content')
     <div class="container" style="position: relative;">
@@ -18,8 +30,7 @@
                 <button type="submit" style="margin-right: 4.5rem; background-color: grey; color: white; border-radius: 10px; padding: 10px 20px;" class="btn btn-primary">Toon Leveranciers</button>
             </form>
         </div>
-
-        <div style="overflow-x: auto;">
+        <div style="overflow-x: auto; margin-top: 20px;"> <!-- Verhoogde margin-top -->
             <table class="table table-bordered table-striped" style="width: 90%; margin: 0 auto;">
                 <thead style="background-color: white; color: black;">
                     <tr>
@@ -33,35 +44,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (isset($errorMessage))
+                    @foreach ($leveranciers as $leverancier)
                         <tr>
-                            <td colspan="7" style="background-color: #F3E2AF; color:#c8b783; border-radius: 10px; text-align: center; padding: 10px;">
-                                {{ $errorMessage }}
+                            <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->naam }}</td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contactpersoon }}</td>
+                            @if ($leverancier->contact->isNotEmpty())
+                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contact->first()->Email }}</td>
+                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contact->first()->Mobiel }}</td>
+                            @else
+                                <td colspan="2" style="padding: 10px; border: 1px solid #dee2e6; color: red; text-align: center;">Niet beschikbaar</td>
+                            @endif
+                            <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->leverancier_nummer }}</td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->leverancier_type }}</td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6;">
+                            <a href="{{ route('leveranciers.products', $leverancier->id) }}" class="btn btn-sm btn-primary">
+    <span class="blue-icon">
+        <i class="fas fa-edit fa-icon"></i>
+    </span>
+</a>
+
                             </td>
                         </tr>
-                    @else
-                        @foreach ($leveranciers as $leverancier)
-                            <tr>
-                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->naam }}</td>
-                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contactpersoon }}</td>
-                                @if ($leverancier->contact->isNotEmpty())
-                                    <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contact->first()->Email }}</td>
-                                    <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->contact->first()->Mobiel }}</td>
-                                @else
-                                    <td style="padding: 10px; border: 1px solid #dee2e6; color: red;">Niet beschikbaar</td>
-                                    <td style="padding: 10px; border: 1px solid #dee2e6; color: red;">Niet beschikbaar</td>
-                                @endif
-                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->leverancier_nummer }}</td>
-                                <td style="padding: 10px; border: 1px solid #dee2e6;">{{ $leverancier->leverancier_type }}</td>
-                                <td style="padding: 10px; border: 1px solid #dee2e6;">
-                                    <a href="{{ route('leveranciers.products', $leverancier->id) }}" class="btn btn-sm btn-primary">Bekijk Producten</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+
+                    @endforeach
                 </tbody>
             </table>
         </div>
+        @if (isset($errorMessage))
+                <div style="width: 90%; margin: 0 auto;background-color: #F3E2AF; border: 1px solid #c8b783; border-radius: 5px; text-align: center; padding: 15px; margin-top: 20px;">
+                    {{ $errorMessage }}
+                </div>
+            @endif
         
         <a href="{{ route('home') }}" class="btn btn-primary" style="position: absolute; bottom: -55px; right: calc(5%); background-color: #2986cc; color: white; border-radius: 10px; padding: 10px 20px;">Home</a>
     </div>

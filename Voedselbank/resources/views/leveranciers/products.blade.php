@@ -71,7 +71,7 @@
         }
 
         .btn-primary {
-            background-color: grey;
+            background-color: #1e5cad;
             color: white;
             border-radius: 5px;
             padding: 10px 20px;
@@ -79,7 +79,7 @@
         }
 
         .btn-secondary {
-            background-color: lightblue;
+            background-color: #1e5cad; /* Aangepaste donkerblauwe kleur */
             color: white;
             border-radius: 5px;
             padding: 10px 20px;
@@ -94,6 +94,9 @@
             margin-bottom: 20px !important;
         }
     </style>
+
+    <!-- FontAwesome link voor iconen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
 
     <div class="container">
         <h1 class="header">Overzicht Leveranciers</h1>
@@ -145,7 +148,10 @@
                                         <td>{{ $product->barcode }}</td>
                                         <td>{{ \Carbon\Carbon::parse($product->houdbaarheid)->format('d-m-Y') }}</td>
                                         <td>
-                                            <a href="{{ route('producten.edit', $product->id) }}" class="btn btn-sm btn-primary">Wijzig Product</a>
+                                        <a href="{{ route('producten.edit', $product->id) }}" class="btn btn-sm btn-primary">
+    <i class="fas fa-edit fa-icon" style="color: white;"></i>
+</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -156,9 +162,9 @@
             </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <a href="{{ route('leveranciers.index') }}" class="btn btn-secondary">Terug naar Leveranciers</a>
+        <div class="row justify-content-end mb-4"> <!-- Veranderd naar justify-content-end om rechts uit te lijnen -->
+            <div class="col-md-6 text-right"> <!-- Veranderd naar text-right om rechts uit te lijnen -->
+                <a href="{{ route('leveranciers.index') }}" class="btn btn-secondary">Terug</a> <!-- Tekst aangepast naar "Terug" -->
                 <a href="{{ url('dashboard') }}" class="btn btn-secondary ml-2">Home</a>
             </div>
         </div>
