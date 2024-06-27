@@ -1,16 +1,10 @@
 <x-app-layout>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Gezinnen Overzicht') }}
+        <h2 class="font-semibold text-xl text-green-600 leading-tight">
+            {{ __('Overzicht gezinnen met allergieën') }}
         </h2>
     </x-slot>
-    @if ($errorMessage)
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <strong class="font-bold">Foutmelding:</strong>
-            <span class="block sm:inline">{{ $errorMessage }}</span>
-        </div>
-    @endif
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
@@ -108,12 +102,13 @@
                                                 Niet Gedefinieerd
                                             @endif
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-xm text-right">
                                             <a href="{{ route('gezinnen.show', ['gezinId' => $gezin->id, 'allergie_id' => request('allergie_id')]) }}"
-                                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                                Details
+                                                class="inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                <i class="bi bi-journal-text text-blue-500 text-xl -ml-1"></i>
                                             </a>
                                         </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

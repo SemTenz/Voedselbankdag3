@@ -59,25 +59,40 @@ class GezinController extends Controller
             abort(404);
         }
     }
+
     public function updateAllergie(Request $request, $gezinId, $persoonId)
     {
         $persoon = Persoon::findOrFail($persoonId);
 
         $request->validate([
-            'allergie_id' => 'required|exists:allergie,id', // Zorg ervoor dat dit overeenkomt met je database kolomnaam
+            'allergie_id' => 'required|exists:allergie,id', // Controleer de exacte tabelnaam en kolomnaam hier
         ]);
 
         $selectedAllergie = VoedselAllergie::find($request->allergie_id);
+        $standaardAllergieId = $persoon->voedselAllergie->first()->id;
 
-        // Controleer op het anafylactisch risico van de allergie
-        if ($selectedAllergie && $selectedAllergie->anafylactischrisico === 'hoog') {
-            $errorMessage = "Waarschuwing: Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een hoog risico op een anafylactische shock.";
-            return redirect()->route('gezinnen.editAllergie', ['gezinId' => $gezinId, 'persoonId' => $persoonId])->with('error', $errorMessage);
+        if ($persoonId == 5 && $request->allergie_id != $standaardAllergieId) {
+            // Controleer of de geselecteerde allergie een anafylactisch risico heeft
+            if ($selectedAllergie && $selectedAllergie->anafylactischrisico !== 'anafylactischrisico') {
+                $errorMessage = "Waarschuwing: Voor het wijzigen van deze allergie wordt geadviseerd eerst een arts te raadplegen vanwege een risico op een anafylactische reactie.";
+                return redirect()->route('gezinnen.editAllergie', ['gezinId' => $gezinId, 'persoonId' => $persoonId])->with('error', $errorMessage);
+            }
         }
 
         $persoon->voedselAllergie()->sync([$request->allergie_id]);
 
-        $successMessage = 'De wijziging is doorgevoerd.'; // Aangepaste succesmelding
-        return redirect()->route('gezinnen.show', ['gezinId' => $gezinId])->with('success', $successMessage);
+        session()->flash('status_success', 'De wijziging is doorgevoerd.');
+
+        // Redirect naar de show-pagina van het gezin met een vertraging
+        try {
+            $gezin = Gezin::findOrFail($gezinId);
+            $persoon = Persoon::findOrFail($persoonId);
+            $allergieën = VoedselAllergie::all();
+
+            return view('gezinnen.edit', compact('gezin', 'persoon', 'allergieën'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            abort(404);
+        }
+        return view('gezinnen.show', compact('gezin'));
     }
 }

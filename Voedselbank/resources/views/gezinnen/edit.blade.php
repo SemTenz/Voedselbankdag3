@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Bewerk Allergie van Persoon') }}
+        <h2 class="font-semibold text-xl text-green-600 leading-tight">
+            {{ __('Wijzig allergie') }}
         </h2>
     </x-slot>
 
@@ -9,23 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                 <h2 class="text-lg font-semibold mb-4">Bewerk allergie van persoon:</h2>
-
-                @if (session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
-                        role="alert">
-                        <strong class="font-bold">Waarschuwing!</strong>
-                        <span class="block sm:inline">{{ session('error') }}</span>
-                    </div>
-                @endif
-
-                @if (session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                        role="alert">
-                        <strong class="font-bold">Succes!</strong>
-                        <span class="block sm:inline">{{ session('success') }}</span>
-                    </div>
-                @endif
-
                 <form id="edit-allergie-form"
                     action="{{ route('gezinnen.updateAllergie', ['gezinId' => $gezin->id, 'persoonId' => $persoon->id]) }}"
                     method="POST">
@@ -43,6 +26,34 @@
                             @endforeach
                         </select>
                     </div>
+                    @if (session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                            role="alert">
+                            <strong class="font-bold"></strong>
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+                    @if (session('status_success'))
+                        <div id="success-message"
+                            class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded shadow">
+                            {{ session('status_success') }}
+                        </div>
+                        <script>
+                            // Wacht tot de pagina geladen is
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // Toon het success bericht
+                                const successMessage = document.getElementById('success-message');
+                                if (successMessage) {
+                                    successMessage.style.display = 'block';
+
+                                    // Wacht 3 seconden (3000ms) en redirect dan
+                                    setTimeout(function() {
+                                        window.location.href = "{{ route('gezinnen.show', ['gezinId' => $gezin->id]) }}";
+                                    }, 3000); // 3000 milliseconden = 3 seconden
+                                }
+                            });
+                        </script>
+                    @endif
 
                     <div class="mt-4 flex justify-between items-center">
                         <button type="submit"
@@ -65,21 +76,4 @@
             </div>
         </div>
     </div>
-
-    {{-- JavaScript voor het tonen van de succesmelding --}}
-    <script>
-        // Wacht tot de pagina geladen is
-        document.addEventListener('DOMContentLoaded', function() {
-            // Controleer of de success melding aanwezig is
-            const successMessage = document.getElementById('success-message');
-            if (successMessage) {
-                // Toon het bericht en redirect naar de show pagina na 3 seconden
-                successMessage.style.display = 'block';
-                setTimeout(function() {
-                    successMessage.style.display = 'none';
-                    window.location.href = "{{ route('gezinnen.show', ['gezinId' => $gezin->id]) }}";
-                }, 3000); // 3000 milliseconden = 3 seconden
-            }
-        });
-    </script>
 </x-app-layout>
