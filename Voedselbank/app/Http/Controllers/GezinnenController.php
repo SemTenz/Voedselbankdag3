@@ -12,17 +12,23 @@ class GezinnenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Retrieve all gezinnen with their associated vertegenwoordiger
-        $gezinnen = Gezin::with('vertegenwoordiger')->get();
-        // Return the view with the gezinnen data
-        // $gezinnen = Gezin::with(['eetwensen' => function($query) {
-        //     $query->orderBy('naam'); // Assuming you want to sort by the 'naam' of the eetwens
-        // }])->get();
+        $gezinnen = Gezin::with(['persoon'])->get();
+
+        $eetwensNaam = $request->input('eetwens');
+
+    if (!empty($eetwensNaam)) {
+        $gezinnen = Gezin::select('gezinnen.*')
+            ->join('eetwenspergezin', 'gezinnen.id', '=', 'eetwenspergezin.gezinid') // Adjusted column name
+            ->join('eetwensen', 'eetwenspergezin.eetwensid', '=', 'eetwensen.id') // Adjusted column name
+            ->where('eetwensen.naam', $eetwensNaam) // Correct column name
+            ->get();
+    } else {
+        $gezinnen = Gezin::all();
+    }
 
         return view('gezin.index', compact('gezinnen'));
     }
 
-
-}
+    }

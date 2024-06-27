@@ -24,12 +24,19 @@
                                 }, 3000);
                             </script>
                         @endif
+                        @if($errors->has('customError'))
+                            <div class="alert alert-danger">
+                                <div class="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded shadow">
+                                    Dit gezin is niet meer ingeschreven bij de voedselbank en daarom kan er geen voedselpakket worden uitgereikt.
+                                </div>
+                            </div>
+                        @endif
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                             Wijzig status voedselpakket
                         </button>
                     </form>
                     <div class="mt-4">
-                        <a href="{{ url()->previous() }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</a>
+                        <a href="{{ route('voedselpakket.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Return</a>
                         <a href="/" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Home</a>
                     </div>
                 </div>

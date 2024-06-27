@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoedselPakketController;
 use App\Http\Controllers\GezinnenController;
+use App\Http\Controllers\EetwensController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/voedselpakket', [VoedselPakketController::class, 'index'])->name('voedselpakket.index');
     Route::get('/voedselpakket/{voedselpakket}/edit', [VoedselPakketController::class, 'edit'])->name('voedselpakket.edit');
     Route::put('/voedselpakket/{voedselpakket}', [VoedselPakketController::class, 'update'])->name('voedselpakket.update');
+
+    Route::get('/gezinnen/search', [EetwensController::class, 'search'])->name('eetwens.search');
 });
 
 require __DIR__.'/auth.php';

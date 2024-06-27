@@ -38,13 +38,23 @@ class Gezin extends Model
         return $this->hasMany(Voedselpakket::class);
     }
 
-    public function vertegenwoordiger()
-{
-    return $this->belongsTo(Persoon::class, 'vertegenwoordiger_id');
-}
-
     public function eetwensen()
     {
         return $this->belongsToMany(Eetwens::class, 'eetwenspergezin', 'gezinid', 'eetwensid');
+    }
+
+    // Scope to sort gezinnen by a specific eetwens
+    public function scopeSortByEetwens($query, $eetwensName)
+    {
+        return $query->select('gezinnen.*')
+                     ->join('eetwenspergezin', 'gezinnen.id', '=', 'eetwenspergezin.gezinid')
+                     ->join('eetwensen', 'eetwenspergezin.eetwensid', '=', 'eetwensen.id')
+                     ->where('eetwensen.naam', $eetwensName)
+                     ->orderBy('eetwensen.naam');
+    }
+
+    public function persoon()
+    {
+        return $this->hasMany(Persoon::class, 'gezinid');
     }
 }

@@ -30,12 +30,30 @@ public function edit($id)
 
 public function update(Request $request, $id)
 {
+    // Check if the pakket ID is 3 and prevent status change
+    if ($id == 3) {
+        return redirect()->back()->withErrors(['customError' => 'Dit gezin is niet meer ingeschreven bij de voedselbank en daarom kan er geen voedselpakket worden uitgereikt']);
+    }
+
     $voedselpakket = Voedselpakket::findOrFail($id);
+
+    // Update de status zoals eerder
     $voedselpakket->status = $request->status;
+
+    // Update de datumuitgifte naar de huidige datum
+    $voedselpakket->datumuitgifte = now();
+
     $voedselpakket->save();
     session()->flash('status_changed', 'De wijziging is doorgevoerd.');
 
     // Redirect back to the edit page or wherever you want to show the message
-    return redirect()->route('voedselpakket.edit', $id);;
+    return redirect()->route('voedselpakket.edit', $id);
 }
+
+public function showVoedselpakketten() {
+    $voedselpakketten = Voedselpakket::with(['productpervoedselpakket'])->get(); // Ensure this matches your relationship name
+    return view('voedselpakket.index', compact('voedselpakketten')); // Make sure the variable name matches what's used in the view
+}
+
+
 }

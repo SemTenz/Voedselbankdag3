@@ -9,21 +9,19 @@ class Voedselpakket extends Model
 {
     use HasFactory;
 
-    // If your table name doesn't follow Laravel's naming convention, specify it
     protected $table = 'voedselpakketten';
 
-    // Specify the attributes that are mass assignable
-    protected $fillable = [
-        // Add your voedselpakket attributes here, for example:
-        'name',
-        'description',
-        'quantity',
-        // etc.
-    ];
+    public function productpervoedselpakket() {
+        return $this->hasMany(productpervoedselpakket::class, 'voedselpakketid'); // Assuming 'voedselpakket_id' is the correct foreign key
+    }
 
-    // Define relationships, for example, if a voedselpakket belongs to a category
-    // public function category()
-    // {
-    //     return $this->belongsTo(Category::class);
-    // }
+    protected static function boot() {
+        parent::boot();
+    
+        static::saving(function ($voedselpakket) {
+            if ($voedselpakket->isDirty('datumuitgifte')) {
+                $voedselpakket->datumuitgifte_last_changed = now();
+            }
+        });
+    }
 }
