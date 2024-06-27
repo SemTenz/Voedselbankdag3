@@ -63,7 +63,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 3,
+                'leverancier_id' => 5,
                 'product_id' => 7,
                 'datum_aangeleverd' => '2024-06-08',
                 'datum_eerstvolgende_levering' => '2024-07-24',
@@ -71,7 +71,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 4,
+                'leverancier_id' => 6,
                 'product_id' => 8,
                 'datum_aangeleverd' => '2024-06-04',
                 'datum_eerstvolgende_levering' => '2024-07-20',
@@ -79,7 +79,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 1,
+                'leverancier_id' => 8,
                 'product_id' => 9,
                 'datum_aangeleverd' => '2024-05-30',
                 'datum_eerstvolgende_levering' => '2024-07-15',
@@ -87,7 +87,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 2,
+                'leverancier_id' => 7,
                 'product_id' => 10,
                 'datum_aangeleverd' => '2024-06-13',
                 'datum_eerstvolgende_levering' => '2024-07-27',
@@ -103,7 +103,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 4,
+                'leverancier_id' => 8,
                 'product_id' => 12,
                 'datum_aangeleverd' => '2024-06-05',
                 'datum_eerstvolgende_levering' => '2024-07-19',
@@ -111,7 +111,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 1,
+                'leverancier_id' => 7,
                 'product_id' => 13,
                 'datum_aangeleverd' => '2024-06-10',
                 'datum_eerstvolgende_levering' => '2024-07-24',
@@ -119,7 +119,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 2,
+                'leverancier_id' => 5,
                 'product_id' => 14,
                 'datum_aangeleverd' => '2024-06-02',
                 'datum_eerstvolgende_levering' => '2024-07-16',
@@ -127,7 +127,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 3,
+                'leverancier_id' => 8,
                 'product_id' => 15,
                 'datum_aangeleverd' => '2024-05-29',
                 'datum_eerstvolgende_levering' => '2024-07-12',
@@ -135,7 +135,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 4,
+                'leverancier_id' => 5,
                 'product_id' => 16,
                 'datum_aangeleverd' => '2024-06-12',
                 'datum_eerstvolgende_levering' => '2024-07-26',
@@ -143,7 +143,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 1,
+                'leverancier_id' => 7,
                 'product_id' => 17,
                 'datum_aangeleverd' => '2024-06-07',
                 'datum_eerstvolgende_levering' => '2024-07-21',
@@ -159,7 +159,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 3,
+                'leverancier_id' => 7,
                 'product_id' => 19,
                 'datum_aangeleverd' => '2024-05-31',
                 'datum_eerstvolgende_levering' => '2024-07-14',
@@ -175,7 +175,7 @@ class ProductPerLeverancierSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'leverancier_id' => 1,
+                'leverancier_id' => 6,
                 'product_id' => 21,
                 'datum_aangeleverd' => '2024-06-15',
                 'datum_eerstvolgende_levering' => '2024-07-30',

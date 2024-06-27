@@ -17,9 +17,12 @@ class Leverancier extends Model
     {
         return $this->belongsToMany(Contact::class, 'contactperleverancier', 'leverancier_id', 'contact_id');
     }
-    
+
+    /**
+     * De producten die aan deze leverancier zijn gekoppeld.
+     */
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'productperleverancier', 'leverancier_id', 'product_id');
     }
 }
