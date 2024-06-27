@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Wijzig product</h1>
+        <h1 class="header-title">Wijzig Product</h1>
 
         <div class="alert-container">
             @if(session('error'))
@@ -23,7 +23,7 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="houdbaarheid">Houdbaarheidsdatum</label>
+                <label for="houdbaarheid" class="label-title">Houdbaarheidsdatum:</label>
                 <input type="date" class="form-control" id="houdbaarheid" name="houdbaarheid" value="{{ $product->houdbaarheid->format('Y-m-d') }}" required>
             </div>
 
@@ -37,6 +37,12 @@
     </div>
 
     <style>
+        .header-title {
+            color: green;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
         .alert-container {
             margin-top: 20px;
         }
@@ -59,18 +65,51 @@
             color: #721C24;
         }
 
-        .btn-primary {
-            background-color: grey;
-            color: white;
+        .form-group {
+            margin-top: 15px;
+        }
+
+        .label-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .form-control {
             border-radius: 5px;
             padding: 10px;
+            width: calc(100% - 22px);
+        }
+
+        .btn-primary {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a6268;
         }
 
         .btn-secondary {
-            background-color: lightblue;
+            background-color: #007bff;
             color: white;
             border-radius: 5px;
-            padding: 10px;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+
+        .d-flex {
+            margin-top: 15px;
+        }
+
+        .btn {
+            margin: 0 5px;
         }
     </style>
 @endsection

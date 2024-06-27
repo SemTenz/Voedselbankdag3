@@ -64,7 +64,7 @@ class ProductSeeder extends Seeder
             [
                 'categorie_id' => 5,
                 'naam' => 'Bruin brood',
-                'soort_allergie' => null,
+                'soort_allergie' => 'Coeliakie',
                 'barcode' => '5678901234567',
                 'houdbaarheid' => Carbon::now()->addDays(rand(1, 365))->format('Y-m-d'),
                 'omschrijving' => 'Vers gebakken bruin brood van de bakker.',
@@ -130,7 +130,7 @@ class ProductSeeder extends Seeder
             [
                 'categorie_id' => 3,
                 'naam' => 'Zalmfilet',
-                'soort_allergie' => null,
+                'soort_allergie' => 'Vis',
                 'barcode' => '1234567890123',
                 'houdbaarheid' => Carbon::now()->addDays(rand(1, 365))->format('Y-m-d'),
                 'omschrijving' => 'Verse zalmfilet, perfect voor op de barbecue.',
@@ -152,7 +152,7 @@ class ProductSeeder extends Seeder
             [
                 'categorie_id' => 5,
                 'naam' => 'Wit brood',
-                'soort_allergie' => null,
+                'soort_allergie' => 'coeliakie',
                 'barcode' => '3456789012345',
                 'houdbaarheid' => Carbon::now()->addDays(rand(1, 365))->format('Y-m-d'),
                 'omschrijving' => 'Vers gebakken wit brood, lekker knapperig van buiten en zacht van binnen.',
@@ -262,7 +262,7 @@ class ProductSeeder extends Seeder
             [
                 'categorie_id' => 7,
                 'naam' => 'Tonijn',
-                'soort_allergie' => null,
+                'soort_allergie' => 'Vis',
                 'barcode' => '3456789012345',
                 'houdbaarheid' => Carbon::now()->addDays(rand(1, 365))->format('Y-m-d'),
                 'omschrijving' => 'Verse tonijnfilet, ideaal voor sushi, salades of als hoofdgerecht.',
@@ -284,7 +284,7 @@ class ProductSeeder extends Seeder
             [
                 'categorie_id' => 9,
                 'naam' => 'Pasta',
-                'soort_allergie' => null,
+                'soort_allergie' => 'Coeliakie',
                 'barcode' => '5678901234567',
                 'houdbaarheid' => Carbon::now()->addDays(rand(1, 365))->format('Y-m-d'),
                 'omschrijving' => 'Verse pasta, ideaal voor snelle en smakelijke gerechten.',

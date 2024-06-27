@@ -6,10 +6,8 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 1rem;
-            color: #6aa84f;
-            background-color: white;
-            border-bottom: 2px solid black;
-            padding: 10px;
+            color: green;
+            padding: 10px 0;
             text-align: left;
         }
 
@@ -20,9 +18,7 @@
 
         .card-body {
             padding: 15px;
-            border: 1px solid #dee2e6;
             border-radius: 5px;
-            margin-bottom: 20px;
         }
 
         .item {
@@ -42,53 +38,66 @@
         }
 
         .alert {
-            background-color: #F3E2AF;
-            border-color: #c8b783;
-            color: #c8b783;
-            border-radius: 10px;
+            background-color: #F8D7DA;
+            border-color: #F5C6CB;
+            color: #721C24;
+            border-radius: 5px;
             text-align: center;
             padding: 10px;
         }
 
         .table-responsive {
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         .table-responsive table {
             width: 100%;
             text-align: center;
+            border-collapse: collapse;
         }
 
         .table-responsive thead th {
             font-weight: bold;
-            padding: 15px;
-            background-color: white;
-            color: black;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            text-align: center;
         }
 
         .table-responsive tbody td {
-            padding: 15px;
+            padding: 10px;
             border: 1px solid #dee2e6;
+            text-align: center;
         }
 
         .btn-primary {
-            background-color: #2986cc;
+            background-color: grey;
             color: white;
-            border-radius: 10px;
+            border-radius: 5px;
             padding: 10px 20px;
+            border: none;
         }
 
         .btn-secondary {
-            background-color: #2986cc;
+            background-color: lightblue;
             color: white;
-            border-radius: 10px;
+            border-radius: 5px;
             padding: 10px 20px;
+            border: none;
+        }
+
+        .btn-primary, .btn-secondary {
+            margin-top: 10px;
+        }
+
+        .mb-4 {
+            margin-bottom: 20px !important;
         }
     </style>
 
     <div class="container">
-        <h1 class="header">Overzicht Leverancier</h1>
-        
+        <h1 class="header">Overzicht Leveranciers</h1>
+
         <div class="row justify-content-center mb-4">
             <div class="col-md-8">
                 <div class="card">
@@ -149,7 +158,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
-                <a href="{{ route('leveranciers.index') }}" class="btn btn-primary">Terug naar Leveranciers</a>
+                <a href="{{ route('leveranciers.index') }}" class="btn btn-secondary">Terug naar Leveranciers</a>
                 <a href="{{ url('dashboard') }}" class="btn btn-secondary ml-2">Home</a>
             </div>
         </div>
