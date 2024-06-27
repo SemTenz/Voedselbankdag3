@@ -60,7 +60,7 @@
                                     Woonplaats
                                 </th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    E-mailadres
+                                    Klant Details
                                 </th>
 
                             </tr>
@@ -120,6 +120,9 @@
                                 @endforeach
                         </tbody>
                     </table>
+                    <button type="button" onclick="window.location.href='/'" class="inline-flex items-center px-2 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        Home
+                    </button>
                     @if(isset($isEmpty) && $isEmpty)
                     <div class="mt-4 p-4 bg-yellow-100 text-yellow-700 border border-yellow-400 rounded">
                         <strong>Er zijn geen klanten die de geselecteerde postcode hebben.</strong>

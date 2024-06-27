@@ -42,9 +42,9 @@ class Klantcontroller extends Controller
         return view('klant.index', compact('gezinnen', 'isEmpty', 'postcodes'))->render();
     }
 
-    public function show($id)
+    public function show($klant)
     {
-        $persoon = Persoon::find($id);
+        $persoon = Persoon::find($klant);
 
         $contactPerGezin = ContactPerGezin::where('gezinId', $persoon->GezinId)->first();
 

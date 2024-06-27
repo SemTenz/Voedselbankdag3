@@ -25,5 +25,5 @@ Route::get('/gezinnen/search', [Klantcontroller::class, 'search'])->name('klant.
 
 Route::get('/klant{id}', [Klantcontroller::class, 'edit'])->name('klant.edit');
 Route::put('/klant{id}', [Klantcontroller::class, 'update'])->name('klant.update');
-Route::get('/klant{id}', [Klantcontroller::class, 'show'])->name('klant.details');
+Route::get('/klant{id}/details', [Klantcontroller::class, 'show'])->name('klant.details');
 require __DIR__ . '/auth.php';
